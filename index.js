@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser")
+const bodyParser = require("body-parser")
 
 
 require("dotenv").config();
@@ -16,13 +17,25 @@ const cors = require("cors");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const fileUpload = require("express-fileupload");
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT
+
+database.connect();
+
+console.log("connection established ")
+
+app.get("/", (req, res) => {
+    return res.json({
+        success: true,
+        message: "Your Server is up and running ",
+    });
+});
 
 //db connect 
-database.connect();
+
 //middlewares 
 app.use(express.json());
-app.use(cookieParser);
+// app.use(bodyParser.json());
+app.use(cookieParser());
 app.use(
     cors({
         origin: "http://localhost:3000",
@@ -53,3 +66,5 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
     console.log(`App is running at PORT ${PORT}`);
 });
+
+console.log("connection established through middlewares")

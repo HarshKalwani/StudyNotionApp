@@ -180,8 +180,10 @@ exports.login = async (req, res) => {
 };
 // Send OTP For Email Verification
 exports.sendotp = async (req, res) => {
+	
 	try {
 		const { email } = req.body;
+		console.log("email");
 
 		// Check if user is already present
 		// Find user with provided email
